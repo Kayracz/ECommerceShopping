@@ -8,12 +8,25 @@ import './styles.css'
 const CheckOutSideMenu = () => {
   const context = useContext(ShoppingCartContext)
 
+  const productCounts = {};
+
+  // Count product occurrences by ID
+  context.cartProducts.forEach((product) => {
+    if (productCounts[product.id]) {
+      productCounts[product.id]++;
+    } else {
+      productCounts[product.id] = 1;
+    }
+  });
+
   const handleDelete = (id) => {
     const filteredProducts = context.cartProducts.filter(product => product.id != id)
     context.setCartProducts(filteredProducts) 
   }
-  
 
+  // Define an array to keep track of rendered product IDs
+  const renderedProductIds = [];
+  
   return (
     <aside 
     className={`${context.isCheckOutSideMenuOpen ? 'flex' : 'hidden'} checkout-side-menu flex-col fixed border border-black rounded-lg bg-white right-1`}>
@@ -24,19 +37,28 @@ const CheckOutSideMenu = () => {
         </div>
       </div>
       <div className="px-6 overflow-y-scroll">
-      {
-        context.cartProducts.map((product) => (
-           <OrderCard 
-           id={product.id} 
-           key={product.id} 
-           title={product.title} 
-           imageUrl={product.image} 
-           price={product.price}
-           handleDelete={handleDelete}
-           />
-          )
-        )
-        }
+      {context.cartProducts.map((product) => {
+          // Check if the product ID has already been rendered
+          if (!renderedProductIds.includes(product.id)) {
+            // If not rendered, add it to the array and render the OrderCard
+            renderedProductIds.push(product.id);
+            return (
+              <OrderCard 
+                id={product.id} 
+                key={product.id} 
+                title={product.title} 
+                imageUrl={product.image} 
+                price={product.price}
+                handleDelete={handleDelete}
+                quantity={productCounts[product.id] || 1} // Display count (default to 1 if not found)
+                count={product.count} // Pass the count as a prop
+              />
+            );
+          } else {
+            // If already rendered, return null (no rendering)
+            return null;
+          }
+        })}
         </div>
         <div className='px-6'>
         <p className='flex justify-between items-center'>
