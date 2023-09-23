@@ -14,6 +14,12 @@ const Card = (data) => {
     const addProductToCart = (event, productData) => {
         event.stopPropagation()
         context.setCount(context.count + 1)
+    
+    // Log the productData and its id to check if it's correct
+  console.log("Product Data:", productData);
+  console.log("Product ID:", productData.id);
+
+  
         context.setCartProducts([...context.cartProducts, productData])
         context.openCheckOutSideMenu()
         context.closeProductDetail()
@@ -22,7 +28,7 @@ const Card = (data) => {
   return (
      <div className="bg-white cursor-pointer w-56 h-60 rounded-lg" onClick={() => showProduct(data.data)}> 
         <figure className="relative mb-2 w-full h-4/5">
-            <span className="absolute bottom-0 left-0 bg-white/60 rounded-lg text-black text-xs m-2 px-3 py-0.5">{data.data.title}</span>
+            <span className="absolute bottom-0 left-0 bg-white/60 rounded-lg text-black text-xs m-2 px-3 py-0.5 line-clamp-1">{data.data.title}</span>
             <img className="w-full h-full object-cover rounded-lg" src={data.data.image} alt="headphones"></img>
 
             <div className="absolute top-0 right-0 flex justify-center items-center bg-white w-6 h-6 rounded-full m-2"
@@ -32,7 +38,7 @@ const Card = (data) => {
 
         </figure>
         <p className="flex justify-between">
-         <span className="text-sm font-light">{data.data.title}</span>
+         <span className="text-sm font-light line-clamp-1">{data.data.title}</span>
          <span className="text-sm font-medium">Bs.{data.data.price}</span>
         </p>
      </div>

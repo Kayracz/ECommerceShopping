@@ -19,10 +19,35 @@ const CheckOutSideMenu = () => {
     }
   });
 
+  // In summary, this function ensures that only one product with the specified id is deleted at a time, even if there are 
+  // multiple products with the same id in the shopping cart. It uses the productDeleted flag to keep track of whether a product 
+  // with the specified id has been deleted or not. Once a product is deleted,
+  // the flag is set to true, preventing further deletions of products with the same id in the same function call.
+
   const handleDelete = (id) => {
-    const filteredProducts = context.cartProducts.filter(product => product.id != id)
-    context.setCartProducts(filteredProducts) 
+    // Flag to track if a product has been deleted for this ID
+    let productDeleted = false;
+
+    // Filter products and only delete one product per ID
+    const filteredProducts = context.cartProducts.filter((product) => {
+      if (product.id === id && !productDeleted) {
+        productDeleted = true; // Set the flag to true for this ID
+        return false; // Do not include this product in the filtered list
+      }
+      return true; // Include other products
+    });
+
+    context.setCartProducts(filteredProducts);
   }
+
+  const plusQuantity = (id) => {
+    const productIndex = cartProducts.findIndex(product => product.id === id);
+    let newCart = [...cartProducts];
+    newCart[productIndex].quantity++;
+    newCart[productIndex].subtotal = newCart[productIndex].price * newCart[productIndex].quantity
+    setCounter(counter + 1);
+    setCartProducts(newCart);
+}
 
   // Define an array to keep track of rendered product IDs
   const renderedProductIds = [];
@@ -50,8 +75,8 @@ const CheckOutSideMenu = () => {
                 imageUrl={product.image} 
                 price={product.price}
                 handleDelete={handleDelete}
+                plusQuantity={plusQuantity}
                 quantity={productCounts[product.id] || 1} // Display count (default to 1 if not found)
-                count={product.count} // Pass the count as a prop
               />
             );
           } else {
