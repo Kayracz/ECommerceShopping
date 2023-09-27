@@ -1,7 +1,7 @@
-import { MinusIcon, PlusIcon, XMarkIcon } from '@heroicons/react/24/solid';
+import { XMarkIcon } from '@heroicons/react/24/solid';
 
 const OrderCard = (props) => {
-    const { id, title, imageUrl, price, handleDelete, quantity, plusQuantity } = props;
+    const { id, title, imageUrl, price, handleDelete, quantity } = props;
     
     return (
             <div className="flex justify-between items-center mb-3">
@@ -15,25 +15,9 @@ const OrderCard = (props) => {
                     </figure>
                     <p className="text-sm font-light line-clamp-1">{title}</p>
                 </div>
-
-                <div className="flex items-center gap-2">
-                    <PlusIcon
-                         onClick={() => plusQuantity(id)}
-                        className="h-6 w-6 text-black cursor-pointer"
-                    ></PlusIcon>
-                </div>
-
-                <span className="text-xs font-medium">{quantity}</span>
-
-
-                <div className="flex items-center gap-2">
-                    <MinusIcon
-                        onClick={() => handleDelete(id)}
-                        className="h-6 w-6 text-black cursor-pointer"
-                    ></MinusIcon>
-                </div>
                 <div className="flex items-center gap-2">
                     <p className="text-lg font-medium">{price}</p>
+                    ({quantity})
                     <XMarkIcon
                         onClick={() => handleDelete(id)}
                         className="h-6 w-6 text-black cursor-pointer"

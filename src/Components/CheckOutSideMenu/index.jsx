@@ -40,15 +40,6 @@ const CheckOutSideMenu = () => {
     context.setCartProducts(filteredProducts);
   }
 
-  const plusQuantity = (id) => {
-    const productIndex = cartProducts.findIndex(product => product.id === id);
-    let newCart = [...cartProducts];
-    newCart[productIndex].quantity++;
-    newCart[productIndex].subtotal = newCart[productIndex].price * newCart[productIndex].quantity
-    setCounter(counter + 1);
-    setCartProducts(newCart);
-}
-
   // Define an array to keep track of rendered product IDs
   const renderedProductIds = [];
   
@@ -75,7 +66,6 @@ const CheckOutSideMenu = () => {
                 imageUrl={product.image} 
                 price={product.price}
                 handleDelete={handleDelete}
-                plusQuantity={plusQuantity}
                 quantity={productCounts[product.id] || 1} // Display count (default to 1 if not found)
               />
             );
