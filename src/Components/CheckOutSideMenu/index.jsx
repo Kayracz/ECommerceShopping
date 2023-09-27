@@ -19,7 +19,7 @@ const CheckOutSideMenu = () => {
     }
   });
 
-  
+
   const handleDelete = (id) => {
     // Flag to track if a product has been deleted for this ID
     let productDeleted = false;

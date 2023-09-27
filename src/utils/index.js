@@ -7,7 +7,7 @@ export const totalPrice = (products) => {
   let sum = 0;
   products.forEach((product) => {
       // Multiply the product's price by its quantity and add to the sum
-      sum += (product.price * (product.quantity || 1));
+      sum += (product.price.toFixed(2) * (product.quantity || 1));
   });
   return sum;
 };
