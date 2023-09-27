@@ -19,11 +19,7 @@ const CheckOutSideMenu = () => {
     }
   });
 
-  // In summary, this function ensures that only one product with the specified id is deleted at a time, even if there are 
-  // multiple products with the same id in the shopping cart. It uses the productDeleted flag to keep track of whether a product 
-  // with the specified id has been deleted or not. Once a product is deleted,
-  // the flag is set to true, preventing further deletions of products with the same id in the same function call.
-
+  
   const handleDelete = (id) => {
     // Flag to track if a product has been deleted for this ID
     let productDeleted = false;
@@ -38,6 +34,7 @@ const CheckOutSideMenu = () => {
     });
 
     context.setCartProducts(filteredProducts);
+    context.setCount(context.count - 1)
   }
 
   // Define an array to keep track of rendered product IDs

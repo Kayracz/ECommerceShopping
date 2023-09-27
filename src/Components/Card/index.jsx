@@ -14,11 +14,6 @@ const Card = (data) => {
     const addProductToCart = (event, productData) => {
         event.stopPropagation()
         context.setCount(context.count + 1)
-    
-    // Log the productData and its id to check if it's correct
-  console.log("Product Data:", productData);
-  console.log("Product ID:", productData.id);
-
   
         context.setCartProducts([...context.cartProducts, productData])
         context.openCheckOutSideMenu()
