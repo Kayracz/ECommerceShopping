@@ -6,8 +6,11 @@
 export const totalPrice = (products) => {
   let sum = 0;
   products.forEach((product) => {
-      // Multiply the product's price by its quantity and add to the sum
-      sum += (product.price.toFixed(2) * (product.quantity || 1));
+    // Use parseFloat to ensure precise calculation
+    const price = parseFloat(product.price.toFixed(2));
+    // Multiply the product's price by its quantity and add to the sum
+    sum += price * (product.quantity || 1);
   });
-  return sum;
+  // Use parseFloat to ensure the final result is precise
+  return parseFloat(sum.toFixed(2));
 };

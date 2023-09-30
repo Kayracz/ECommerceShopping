@@ -1,4 +1,5 @@
 import { useContext } from "react"
+import { Link } from "react-router-dom"
 import { ShoppingCartContext } from "../../Context"
 import { XMarkIcon } from '@heroicons/react/24/solid'
 import OrderCard from "../OrderCard"
@@ -37,6 +38,19 @@ const CheckOutSideMenu = () => {
     context.setCount(context.count - 1)
   }
 
+  const handleCheckout = () => {
+    const addToOrder = {
+      date: "27.09.2023",
+      products: context.cartProducts,
+      totalProducts: context.cartProducts.length,
+      totalPrice: totalPrice(context.cartProducts),
+    }
+
+    context.setOrder([...context.order, addToOrder])
+    context.setCartProducts([])
+    context.setCount(0);
+  }
+
   // Define an array to keep track of rendered product IDs
   const renderedProductIds = [];
   
@@ -49,7 +63,7 @@ const CheckOutSideMenu = () => {
          <XMarkIcon className='h-6 w-6 text-black cursor-pointer' onClick={()=> context.closeCheckOutSideMenu()}></XMarkIcon>
         </div>
       </div>
-      <div className="px-6 overflow-y-scroll">
+      <div className="px-6 overflow-y-scroll flex-1">
       {context.cartProducts.map((product) => {
           // Check if the product ID has already been rendered
           if (!renderedProductIds.includes(product.id)) {
@@ -77,6 +91,9 @@ const CheckOutSideMenu = () => {
           <span className='font-light'>Total:</span>
           <span className='font-medium text-2xl'>Bs.{totalPrice(context.cartProducts)}</span>
         </p>
+        <Link to="./my-orders/last">
+        <button className="w-full mb-5 mt-5 bg-black py-6 text-white h-1 flex items-center justify-center rounded-lg" onClick={handleCheckout}>Checkout</button>
+        </Link>
       </div>
     </aside>
   )

@@ -34,7 +34,7 @@ const Card = (data) => {
         </figure>
         <p className="flex justify-between">
          <span className="text-sm font-light line-clamp-1">{data.data.title}</span>
-         <span className="text-sm font-medium">Bs.{data.data.price}</span>
+         <span className="text-sm font-medium">Bs.{data.data.price.toFixed(2)}</span>
         </p>
      </div>
     )
