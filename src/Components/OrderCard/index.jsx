@@ -16,7 +16,7 @@ const OrderCard = (props) => {
                     <p className="text-sm font-light line-clamp-1">{title}</p>
                 </div>
                 <div className="flex items-center gap-2">
-                    <p className="text-lg font-medium">{price}</p>
+                    <p className="text-m font-medium">{price}</p>
                     {quantity}
                     {handleDelete? 
                      <XMarkIcon
